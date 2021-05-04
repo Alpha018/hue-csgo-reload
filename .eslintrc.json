@@ -4,19 +4,48 @@
     "es6": true,
     "node": true
   },
+  "plugins": ["@typescript-eslint"],
   "extends": [
+    "airbnb",
+    "plugin:react-hooks/recommended",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "prettier",
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
+  "rules": {
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-parameter-properties": "off",
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "quotes": "error",
+    "camelcase": "off",
+    "no-use-before-define": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "settings": {
+    "import/extensions": [".js",".jsx",".ts",".tsx"],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts",".tsx"]
+    },
+    "import/ignore": {
+      "extensions": [".(png)"]
+    },
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [".js",".jsx",".ts",".tsx"]
       }
     }
   }

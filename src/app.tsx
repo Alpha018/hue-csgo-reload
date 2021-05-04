@@ -1,33 +1,33 @@
-import React, { useEffect } from "react";
-import * as ReactDOM from "react-dom";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { store } from "./store";
-import { setGameStatus } from "./store/actions/gameActions";
-
+import React from 'react';
+import * as ReactDOM from 'react-dom';
+import {Provider, useDispatch, useSelector} from 'react-redux';
+import {store} from './store';
+import {setGameStatus} from './store/actions/gameActions';
+import {GameState} from './types/gameStatus';
+import {App} from './pages/router/router';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const CSGOGSI = require("node-csgo-gsi");
+const CSGOGSI = require('node-csgo-gsi');
 
-const gsi = new CSGOGSI({ port: 4000 });
+const gsi = new CSGOGSI({port: 4000});
 
-const ConnectedApp = () => {
-  return (
-    <Provider store={store}>
-      <Test />
-    </Provider>
-  );
-};
-
-const Test = () => {
+const InitialComponent = () => {
   const dispatch = useDispatch();
-  const { status } = useSelector((store: any) => store.game);
+  const {status} = useSelector((storeTypes: any) => storeTypes.game);
 
-  useEffect(() => {
-    gsi.on("all", (data: any) => {
-      dispatch(setGameStatus(data));
-    });
-  }, [status]);
+  gsi.on('all', (data: GameState) => {
+    dispatch(setGameStatus({
+      status: data,
+    }));
+  });
 
-  return <h2>Hello from React!</h2>;
+  return <App/>;
 };
 
-ReactDOM.render(<ConnectedApp />, document.getElementById("root"));
+const ConnectedApp = () => (
+  <Provider store={store}>
+    <InitialComponent/>
+  </Provider>
+);
+
+
+ReactDOM.render(<ConnectedApp/>, document.getElementById('root'));

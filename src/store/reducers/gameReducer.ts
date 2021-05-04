@@ -1,11 +1,11 @@
 import { SET_GAME_STATUS } from '../types';
-import {GameStates, GameActions} from '../../types/storeTypes'
+import {GameStates, GameActions} from '../../types/storeTypes';
 
 const initialState: GameStates = {
-  status: '',
+  status: null,
 };
 
-const gameReducer = (state = initialState, action: GameActions): any => {
+const gameReducer = (state = initialState, action: GameActions): GameStates => {
   switch (action.type) {
     case SET_GAME_STATUS:
       return {
@@ -17,4 +17,4 @@ const gameReducer = (state = initialState, action: GameActions): any => {
   }
 };
 
-export default gameReducer
+export default gameReducer;

@@ -1,8 +1,10 @@
+import {GameState} from './gameStatus';
+
 export interface GameStates {
-  status: string
+  status: GameState
 }
 
 export interface GameActions {
   type: string
-  status: string
+  status: GameState
 }

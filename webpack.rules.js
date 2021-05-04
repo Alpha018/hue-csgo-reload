@@ -1,6 +1,14 @@
 module.exports = [
   // Add support for native node modules
   {
+    test: /\.(png|jpe?g|gif)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+      },
+    ],
+  },
+  {
     test: /\.node$/,
     use: 'node-loader',
   },
@@ -23,5 +31,14 @@ module.exports = [
         transpileOnly: true
       }
     }
+  },
+  {
+    test: /\.s[ac]ss$/i,
+    use: [
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+      'sass-loader'
+    ],
   },
 ];
