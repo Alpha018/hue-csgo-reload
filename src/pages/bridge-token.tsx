@@ -27,12 +27,15 @@ export const BridgeTokenComponent: FunctionComponent = () => {
   useEffect(() => {
     getBridge().then(async (data) => {
       setLoading(false);
-      if (!data || data.length === 0) {
+      if (!data) {
         setError('No existen Hue Bridge en tu red');
       } else {
-        setBridgeIp(data[0]);
+        setBridgeIp(data);
       }
-    });
+    })
+      .catch((err) => {
+        setError('Error al buscar los bridge');
+      });
   }, [])
 
   useEffect(() => {
@@ -47,6 +50,7 @@ export const BridgeTokenComponent: FunctionComponent = () => {
           if (token[0].success.username) {
             setBridgeToken(token[0].success.username);
             localStorage.setItem('token', token[0].success.username);
+            localStorage.setItem('bridgeIp', bridgeIp);
             history.push(ROUTER_PATH.INIT_LOADING);
           } else {
             setRetry(retry + 1);
@@ -88,8 +92,11 @@ export const BridgeTokenComponent: FunctionComponent = () => {
         <DivShadow>
           <Images type="bridge" height="200" width="200" style={{margin: '-70px -70px'}}/>
         </DivShadow>
+        {bridgeIp && (
+          <h3>Conectado a: {bridgeIp}</h3>
+        )}
         {error &&(
-          <span></span>
+          <span>{error}</span>
         )}
       </div>
     </Wrapper>

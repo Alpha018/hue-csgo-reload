@@ -1,7 +1,7 @@
 module.exports = [
   // Add support for native node modules
   {
-    test: /\.(png|jpe?g|gif)$/i,
+    test: /\.(png|jpe?g|gif|svg)$/i,
     use: [
       {
         loader: 'file-loader',

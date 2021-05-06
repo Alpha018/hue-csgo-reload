@@ -9,8 +9,9 @@ export const LoadingComponent: FunctionComponent = () => {
   const history = useHistory();
 
   if (!token) {
-    // TODO: Send to get token page
     history.push(ROUTER_PATH.BRIDGE_PAGE)
+  } else {
+    history.push(ROUTER_PATH.SELECTED_PAGE)
   }
 
 

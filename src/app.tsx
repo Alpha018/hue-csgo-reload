@@ -13,7 +13,8 @@ const gsi = new CSGOGSI({port: 4000});
 const InitialComponent = () => {
   const dispatch = useDispatch();
   const {status} = useSelector((storeTypes: any) => storeTypes.game);
-
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  gsi.removeListener('all', () => {});
   gsi.on('all', (data: GameState) => {
     dispatch(setGameStatus({
       status: data,

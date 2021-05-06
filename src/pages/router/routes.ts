@@ -3,4 +3,5 @@ export enum ROUTER_PATH {
   LOADING = '/loading',
   INIT_LOADING = '/init-loading',
   BRIDGE_PAGE = '/bridge-page',
+  SELECTED_PAGE = '/selected-page',
 }
