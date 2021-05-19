@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Provider, useDispatch, useSelector} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import {store} from './store';
 import {setGameStatus} from './store/actions/gameActions';
 import {GameState} from './types/gameStatus';
@@ -12,7 +12,6 @@ const gsi = new CSGOGSI({port: 4000});
 
 const InitialComponent = () => {
   const dispatch = useDispatch();
-  const {status} = useSelector((storeTypes: any) => storeTypes.game);
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   gsi.removeListener('all', () => {});
   gsi.on('all', (data: GameState) => {

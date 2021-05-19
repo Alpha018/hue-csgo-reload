@@ -1,4 +1,6 @@
-import { app, BrowserWindow } from 'electron';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { app, BrowserWindow, protocol } from 'electron';
+import path from 'path';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
@@ -8,6 +10,12 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 const createWindow = (): void => {
+  protocol.interceptFileProtocol('static', (request, callback) => {
+    const fileUrl = request.url.replace('static://', '');
+    const filePath = path.join(app.getAppPath(), '.webpack/renderer', fileUrl);
+    callback(filePath);
+  });
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     webPreferences: {
@@ -23,7 +31,7 @@ const createWindow = (): void => {
   mainWindow.removeMenu();
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

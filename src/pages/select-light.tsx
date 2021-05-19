@@ -3,12 +3,12 @@ import {useHistory} from 'react-router-dom';
 import {Hue} from 'hue-hacking-node';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import {Card, CardBody, CardSubtitle, CardTitle, Col, Container, Row, FormCheckbox} from 'shards-react';
-import {Lamp} from 'hue-hacking-node/src/hue-interfaces';
+import {Card, CardBody, CardTitle, Col, Container, Row, FormCheckbox} from 'shards-react';
 import styled from 'styled-components';
+import {useSelector} from 'react-redux';
+import LoadingTemplate from './template/loading';
 import {ROUTER_PATH} from './router/routes';
-import {Loading} from '../animations/loading';
-import {connectBridge} from '../service/hue-service';
+import {connectBridge, changeGameState} from '../service/hue-service';
 import {Wrapper} from './template/wrapper';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +19,7 @@ import {Icon} from '../img/asset';
 
 const Div = styled.div`
   display: grid;
+  height: 100%;
   grid-template-columns: 0.4fr 1fr 1fr;
   
   .align-left {
@@ -39,6 +40,7 @@ export const SelectLightComponent: FunctionComponent = () => {
   const [selectedLamps, setSelectedLamps] = useState<LampHue[]>([]);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
+  const {status} = useSelector((storeTypes: any) => storeTypes.game);
 
   useEffect(() => {
     if (!token || !bridgeIp) {
@@ -51,25 +53,25 @@ export const SelectLightComponent: FunctionComponent = () => {
   }, [])
 
   useEffect(() => {
+    if (status?.round?.phase) {
+      changeGameState(status, selectedLamps)
+    }
+  }, [status])
+
+  useEffect(() => {
     if (bridgeApi) {
       bridgeApi.getLamps().then((lampsApi) => {
         setLamps(lampsApi as LampHue[]);
-        console.log(lampsApi);
       });
     }
   }, [bridgeApi])
 
-  useEffect(() => {
-    console.log(selectedLamps);
-  }, [selectedLamps])
-
   function selectedLamp(lamp: LampHue) {
     const search = selectedLamps.find((data) => data.uniqueid === lamp.uniqueid);
     if (search) {
-      const index = selectedLamps.indexOf(lamp);
-      setSelectedLamps(selectedLamps.splice(index, 1));
+      setSelectedLamps(selectedLamps.filter(item => item.uniqueid !== lamp.uniqueid));
     } else {
-      setSelectedLamps(selectedLamps.concat(lamp));
+      setSelectedLamps(oldArray => [...oldArray, lamp]);
     }
   }
 
@@ -106,31 +108,15 @@ export const SelectLightComponent: FunctionComponent = () => {
     );
   }
 
-  function LoadingPage() {
-    return (
-      <Loading>
-        <div className="loading">
-          <div className="loading-text">
-            <span className="loading-text-words">L</span>
-            <span className="loading-text-words">O</span>
-            <span className="loading-text-words">A</span>
-            <span className="loading-text-words">D</span>
-            <span className="loading-text-words">I</span>
-            <span className="loading-text-words">N</span>
-            <span className="loading-text-words">G</span>
-          </div>
-        </div>
-      </Loading>
-    )
-  }
-
   if (loading) {
-    return <LoadingPage/>
+    return <LoadingTemplate/>
   }
 
   return (
     <Wrapper>
       <div className="center-upper">
+        <h1>Selecciona las luces que quieras conectar</h1>
+        <h2>y comienza a jugar Counter Strike</h2>
         <Container>
           {LampsComponent()}
         </Container>

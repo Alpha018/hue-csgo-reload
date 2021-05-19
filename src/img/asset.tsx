@@ -1,17 +1,11 @@
-import React, {FunctionComponent, ImgHTMLAttributes} from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import bridge from './bridgeV2.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import bulb from './bulb.svg';
+import React, {ImgHTMLAttributes} from 'react';
 
 const images = {
-  bridge: { alt: 'bridge', src: bridge },
+  bridge: { alt: 'bridge', src: 'static://static/bridgeV2.png' },
 }
 
 const icons = {
-  bulb: { alt: 'bulb', src: bulb },
+  bulb: { alt: 'bulb', src: 'static://static/bulb.svg' },
 }
 
 export function Images(props: { type: keyof typeof images } & ImgHTMLAttributes<unknown>): JSX.Element {

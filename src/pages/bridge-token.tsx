@@ -2,15 +2,15 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useHistory} from 'react-router-dom';
 import {getBridge, getBridgeToken} from '../service/hue-service';
-import {Loading} from '../animations/loading';
 import {Images} from '../img/asset';
 import {Wrapper} from './template/wrapper';
 import {ROUTER_PATH} from './router/routes';
+import LoadingTemplate from './template/loading';
 
 const DivShadow = styled.div`
   margin: 70px auto;
-  width: 50px;
-  height: 50px;
+  width: 200px;
+  height: 150px;
   border-radius: 50%;
   box-shadow: 0 0 200px 100px #4389a6;
 `
@@ -33,7 +33,7 @@ export const BridgeTokenComponent: FunctionComponent = () => {
         setBridgeIp(data);
       }
     })
-      .catch((err) => {
+      .catch(() => {
         setError('Error al buscar los bridge');
       });
   }, [])
@@ -57,32 +57,13 @@ export const BridgeTokenComponent: FunctionComponent = () => {
           }
         } catch (e) {
           setRetry(retry + 1);
-          console.error(e);
         }
       }
     }, 2000)
   }
 
-  function LoadingPage() {
-    return (
-      <Loading>
-        <div className="loading">
-          <div className="loading-text">
-            <span className="loading-text-words">L</span>
-            <span className="loading-text-words">O</span>
-            <span className="loading-text-words">A</span>
-            <span className="loading-text-words">D</span>
-            <span className="loading-text-words">I</span>
-            <span className="loading-text-words">N</span>
-            <span className="loading-text-words">G</span>
-          </div>
-        </div>
-      </Loading>
-    )
-  }
-
   if (loading) {
-    return <LoadingPage/>
+    return <LoadingTemplate/>
   }
 
   return (
