@@ -1,7 +1,13 @@
 # Hue - CS:GO Reload
 
 # Run App
-You only need to execute the exe file, for this iteration this work only in Windows.
+* For usage, you need download the gamestate_integration_c4_hue.cfg file and copy into CS:GO Folder
+
+Example:
+
+`C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg`
+
+And you only need to execute the exe file, for this iteration this work only in Windows.
 
 # Install and Usage for developers
 
