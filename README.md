@@ -31,7 +31,10 @@ Windows: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Off
 npm run start
 ```
 
-When you run the APP, this search your Philips Hue IP automatic and you need select a room to change color of the lights.
+When you launch the app, it will search for your bridge on the network and will prompt you to press the Hue Bridge button to start.
+
+
+When you do this you can select the lights on which you want the effect to be applied.
 
 * Final step:
 ```text
