@@ -1,13 +1,13 @@
 # Hue - CS:GO Reload
 
 # Run App
-* For usage, you need download the gamestate_integration_c4_hue.cfg file and copy into CS:GO Folder
+* For usage, you need to download the gamestate_integration_c4_hue.cfg file and copy it into CS:GO Folder
 
 Example:
 
 `C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg`
 
-And you only need to execute the exe file, for this iteration this work only in Windows.
+And you only need to execute the exe file, for this iteration this works only on Windows.
 
 # Install and Usage for developers
 
@@ -34,7 +34,7 @@ npm run start
 When you launch the app, it will search for your bridge on the network and will prompt you to press the Hue Bridge button to start.
 
 
-When you do this you can select the lights on which you want the effect to be applied.
+When you do this you can select the lights on which you want to apply the effect
 
 * Final step:
 ```text
